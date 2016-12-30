@@ -52,7 +52,7 @@ module transinnerhalf() {
 
 module pennystuff(length) {
     difference() {
-        translate([outerr - 5, -1.2*pennyradius, 0]) {
+        translate([outerr - 6, -1.2*pennyradius, 0]) {
                 difference() {
                     cube([length*length1, 2.4*pennyradius, h]);
                     translate([0, 0.2*pennyradius, 3 + 3*pennyheight]) cube([length*length1, 2*pennyradius, h]);

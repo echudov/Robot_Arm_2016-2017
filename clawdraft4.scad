@@ -55,7 +55,7 @@ module pennystuff(length) {
         translate([outerr - 6, -1.2*pennyradius, 0]) {
                 difference() {
                     cube([length*length1, 2.4*pennyradius, h]);
-                    translate([0, 0.15*pennyradius, 3]) cube([length*length1, 2.1*pennyradius, h]);
+                    translate([0, 0.15*pennyradius, 2]) cube([length*length1, 2.1*pennyradius, h]);
             }
         }
         cylinder(h, outerr, outerr);

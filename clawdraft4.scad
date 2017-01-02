@@ -1,4 +1,4 @@
-h = 40;
+h = 20;
 innerr = 11.5;
 outerr = 13.5;
 pennyradius = 10;
@@ -55,7 +55,7 @@ module pennystuff(length) {
         translate([outerr - 6, -1.2*pennyradius, 0]) {
                 difference() {
                     cube([length*length1, 2.4*pennyradius, h]);
-                    translate([0, 0.2*pennyradius, 3 + 3*pennyheight]) cube([length*length1, 2*pennyradius, h]);
+                    translate([0, 0.15*pennyradius, 3]) cube([length*length1, 2.1*pennyradius, h]);
             }
         }
         cylinder(h, outerr, outerr);
@@ -72,6 +72,17 @@ module exit() {
     }  
 }
 
+module finger() {
+    difference() {
+        cube([1.75*pennyradius, 120, 0.8*pennyheight]);
+        translate ([0.5*1.75*pennyradius, 115, 0]) cylinder(pennyheight, 1.75*pennyradius, 1.75*pennyradius);
+    }
+}
+
+module transfinger() {
+    translate([-50, 30, 0]) finger();
+}
+
 innerhalf();
 
 transinnerhalf();
@@ -83,3 +94,5 @@ halfcylinder();
 entrance();
 
 exit();
+
+transfinger();

@@ -63,12 +63,12 @@ module pennystuff(length) {
 }
 
 module entrance() {
-    translate([-2, 0, 0]) pennystuff(2);
+    translate([-2, 0, 0]) pennystuff(1.5);
 }
 
 module exit() {
     rotate([0, 0, 180]) {
-        translate([38, 0 , 0]) pennystuff(3); 
+        translate([38, 0 , 0]) pennystuff(2); 
     }  
 }
 

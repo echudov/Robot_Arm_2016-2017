@@ -1,9 +1,11 @@
-h = 20;
+h = 35;
 innerr = 11.5;
 outerr = 13.5;
 pennyradius = 10;
 pennyheight = 1.52;
 length1 = 10;
+motorlength = 24;
+servothickness = 12;
 
 module hollowcylinder() {
     difference() {
@@ -62,13 +64,40 @@ module pennystuff(length) {
     }
 }
 
+module servoholder() {
+    difference() {
+        translate([0, outerr - 1, 0]) {
+            cube([3, 22 + motorlength, h]);
+        }
+        translate([0, 0.5*outerr - 1, 0]) { 
+            cylinder([2*outerr, 2*outerr, h]);
+        }
+    }
+}
+
+module extention() {
+    servoholder();
+    translate([-0.5*servothickness, 22 + outerr, 0]) {
+        cube([3 + servothickness, motorlength + 6, h]);
+    }
+}
+
+module extentionminus() {
+    difference() {
+        extention();
+        translate([-0.5*servothickness, 22 + outerr + 3, 0]) {
+            cube([servothickness, motorlength, h]);
+        }
+    }
+}
+
 module entrance() {
     translate([-2, 0, 0]) pennystuff(2);
 }
 
 module exit() {
     rotate([0, 0, 180]) {
-        translate([38, 0 , 0]) pennystuff(3); 
+        translate([38, 0 , 0]) pennystuff(2.5); 
     }  
 }
 
@@ -95,4 +124,6 @@ entrance();
 
 exit();
 
-transfinger();
+//transfinger();
+
+extentionminus();

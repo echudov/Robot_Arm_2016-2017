@@ -1,11 +1,36 @@
-h = 35;
-innerr = 11.5;
-outerr = 13.5;
-pennyradius = 10;
-pennyheight = 1.52;
-length1 = 10;
-motorlength = 24;
-servothickness = 12;
+h = 35; //height of the entire structure
+innerr = 11.5; //inner radius for cylinders
+outerr = 13.5; //outer radius for cylinders
+pennyradius = 10; //radius of a penny
+pennyheight = 1.52; //height of a penny
+motorlength = 24; //length of the motor (long side)
+servothickness = 12; //thickness of the motor
+armlength = 90;
+
+x = 4; //length in the x direction for the points
+y = innerr*2; //length in the y direction for the points
+th = 2; //height of triangular prism
+
+tripoints = [
+    [x, th], //0
+    [x, 0], //1
+    [0, th] //2
+];
+
+module triangpris() {
+    translate([0, -0.5*y, th]) {
+        rotate([0, 0, 180]) {
+            rotate([90, 180, 0]) {
+                linear_extrude(height = y, center = 0, convexity = 10, twist = 0, slices = 20) {
+                    polygon(tripoints);
+                }
+            }
+        }
+    }
+}
+
+
+//draws a triangular prism
 
 module hollowcylinder() {
     difference() {
@@ -13,6 +38,8 @@ module hollowcylinder() {
         cylinder(h, innerr, innerr);
     }
 }
+
+//creates a hollow cylinder
 
 module halfcylinder () {
     intersection() {
@@ -23,6 +50,8 @@ module halfcylinder () {
     }
 }
 
+//halves the hollow cylinder
+
 module rotatedhalfcyl() {
     translate([-40, 0, 0]) {
         rotate([0, 0, 180]) {
@@ -31,13 +60,16 @@ module rotatedhalfcyl() {
     }
 }
 
+//rotates halfcylinder to normal side of graph
+
 module innerportion() {
     difference() {
-        cylinder(2, innerr, innerr);
-        cylinder(3, innerr - 6, innerr);
+        cylinder(th, innerr, innerr);
         
     }
 }
+
+//creates inner scooper only
 
 module innerhalf(){
     intersection() {
@@ -46,23 +78,49 @@ module innerhalf(){
     }
 }
 
-module transinnerhalf() {
-    translate([-40, 0, 0]) {
-        rotate([0, 0, 180]) innerhalf();
+//halves scooper portion
+
+module triangprismed() {
+    difference() {
+        innerhalf();
+        translate([0, -0.5*y, 0]) {
+            cube([x, y, th]);
+        }
+    }
+    intersection() {
+        innerhalf();
+        triangpris();
     }
 }
+
+
+//allows ends of the innerhalf to pick up pennies if they aren't exactly in the center of the claw
+
+module transtrianged() {
+    translate([-40, 0, 0]) {
+        rotate([0, 0, 180]) triangprismed();
+    }
+}
+
+//translated and rotated combined cylinder and scooperw/ triangpris ends
+
+
+
+//beginning of additional stuff for claw such as the servoholder
 
 module pennystuff(length) {
     difference() {
         translate([outerr - 6, -1.2*pennyradius, 0]) {
                 difference() {
-                    cube([length*length1, 2.4*pennyradius, h]);
-                    translate([0, 0.15*pennyradius, 3]) cube([length*length1, 2.1*pennyradius, h]);
+                    cube([length*pennyradius, 2.4*pennyradius, h]);
+                    translate([0, 0.15*pennyradius, 3]) cube([length*pennyradius, 2.1*pennyradius, h]);
             }
         }
         cylinder(h, outerr, outerr);
     }
 }
+
+//entrance and exit structure for pennies (the walls coming from the halfcylinders)
 
 module servoholder() {
     difference() {
@@ -75,12 +133,16 @@ module servoholder() {
     }
 }
 
+//the arm extending for the servo holder (excluding the other parts)
+
 module extention() {
     servoholder();
     translate([-0.5*servothickness, 22 + outerr, 0]) {
         cube([3 + servothickness, motorlength + 6, h]);
     }
 }
+
+//the servo arm with the box for the servo (box still full)
 
 module extentionminus() {
     difference() {
@@ -91,15 +153,21 @@ module extentionminus() {
     }
 }
 
+//excluding the servo from the arm (to be able to place servo into the arm)
+
 module entrance() {
     translate([-2, 0, 0]) pennystuff(2);
 }
+
+//place where pennies enter (the walls coming out of the cylinders)
 
 module exit() {
     rotate([0, 0, 180]) {
         translate([38, 0 , 0]) pennystuff(2.5); 
     }  
 }
+
+//place where pennies exit (the walls coming out of the cylinders)
 
 module finger() {
     difference() {
@@ -108,13 +176,74 @@ module finger() {
     }
 }
 
+//pennypusher
+
 module transfinger() {
     translate([-50, 30, 0]) finger();
 }
 
-innerhalf();
+//translated penny pusher to separate it from the rest of the designs
 
-transinnerhalf();
+module rod(rodheight) {
+    translate([-1.5, -1.5, 0]) {
+        cube([3, 3, rodheight]);
+    }
+}
+
+//rod for keeping servo arm in place when connected to servo
+
+module armholder() {
+    difference() {
+        translate([outerr - 2, -3.5, 0]) {
+            cube([8, 7, 20]);
+        }
+        cylinder(h, outerr, outerr);
+    }
+}
+
+//attachment to the claw fingers for easy connection
+
+module holderwrod(depth) {
+    difference() {
+        armholder();
+        translate([outerr + 3, 0, 20 - depth]) {
+            rod(depth);
+        }
+    }
+}
+
+//armholder with the hole for the rod
+
+module armextend() {
+    cube([8, armlength, 3]);
+}
+
+//arm for the servo extention
+
+module transarm() {
+    translate([20, 10, 0]) {
+        armextend();
+    }
+}
+
+//servo extention translated for fit
+
+module armwhole(degrees) {
+    difference() {
+        transarm();
+        translate([24, 15, 0]) {
+            rotate([0, 0, degrees]) {
+                rod(3);
+            }
+        }
+    }
+}
+
+//servo extention with angled hole to fit the rod
+
+triangprismed();
+
+transtrianged();
 
 rotatedhalfcyl();
 
@@ -127,3 +256,9 @@ exit();
 //transfinger();
 
 extentionminus();
+
+translate([30, -50, 0]) {
+    rod(40);
+    holderwrod(10);
+    armwhole(18.6278632);   
+}

@@ -9,15 +9,15 @@ servothickness = 12;
 armlength = 90;
 
 module rod(rodheight) {
-    translate([-1.5, -1.5, 0]) {
-        cube([3, 3, rodheight]);
+    translate([-2.5, -2.5, 0]) {
+        cube([5, 5, rodheight]);
     }
 }
 
 module armholder() {
     difference() {
-        translate([outerr - 2, -3.5, 0]) {
-            cube([8, 7, 20]);
+        translate([outerr - 3, -5.5, 0]) {
+            cube([15, 11, 20]);
         }
         cylinder(h, outerr, outerr);
     }
@@ -26,18 +26,18 @@ module armholder() {
 module holderwrod(depth) {
     difference() {
         armholder();
-        translate([outerr + 3, 0, 20 - depth]) {
+        translate([outerr + 6.5, 0, 20 - depth]) {
             rod(depth);
         }
     }
 }
 
 module armextend() {
-    cube([8, armlength, 3]);
+    cube([12, armlength, 3]);
 }
 
 module transarm() {
-    translate([35, 30, 0]) {
+    translate([20, 10, 0]) {
         armextend();
     }
 }
@@ -45,7 +45,7 @@ module transarm() {
 module armwhole(degrees) {
     difference() {
         transarm();
-        translate([39, 35, 0]) {
+        translate([26, 16, 0]) {
             rotate([0, 0, degrees]) {
                 rod(3);
             }
@@ -57,4 +57,4 @@ rod(40);
 
 holderwrod(10);
 
-armwhole(18.6278632);
+armwhole(19.7760766);

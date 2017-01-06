@@ -241,6 +241,63 @@ module armwhole(degrees) {
 
 //servo extention with angled hole to fit the rod
 
+module rod(rodheight) {
+    translate([-2.5, -2.5, 0]) {
+        cube([5, 5, rodheight]);
+    }
+}
+
+//rod for keeping servo arm in place when connected to servo
+
+module armholder() {
+    difference() {
+        translate([outerr - 3, -5.5, 0]) {
+            cube([15, 11, 20]);
+        }
+        cylinder(h, outerr, outerr);
+    }
+}
+
+//attachment to the claw fingers for easy connection
+
+module holderwrod(depth) {
+    difference() {
+        armholder();
+        translate([outerr + 6.5, 0, 20 - depth]) {
+            rod(depth);
+        }
+    }
+}
+
+//armholder with the hole for the rod
+
+module armextend() {
+    cube([12, armlength, 3]);
+}
+
+//arm for the servo extention
+
+module transarm() {
+    translate([20, 10, 0]) {
+        armextend();
+    }
+}
+
+//servo extention translated for fit
+
+module armwhole(degrees) {
+    difference() {
+        transarm();
+        translate([26, 16, 0]) {
+            rotate([0, 0, degrees]) {
+                rod(3);
+            }
+        }
+    }
+}
+
+//servo extention with angled hole to fit the rod
+
 triangprismed();
 
 transtrianged();
@@ -260,5 +317,5 @@ extentionminus();
 translate([30, -50, 0]) {
     rod(40);
     holderwrod(10);
-    armwhole(18.6278632);   
+    armwhole(19.7760766);
 }

@@ -9,8 +9,8 @@ servothickness = 12;
 armlength = 90;
 
 module rod(rodheight) {
-    translate([-3, -3, 0]) {
-        cube([6, 6, rodheight]);
+    translate([-2.6, -2.6, 0]) {
+        cube([5.2, 5.2, rodheight]);
     }
 }
 
@@ -53,10 +53,10 @@ module armwhole(degrees) {
     }
 }
 
-translate([0, 20, 3]) {
-    rotate ([90, 0, 0]) rod(40);
-}
+//translate([0, 20, 2.6]) {
+//    rotate ([90, 0, 0]) rod(40);
+//}
 
 holderwrod(15);
 
-armwhole(20.3441013);
+translate([-25, 10, 0]) armwhole(20.3441013);

@@ -9,8 +9,8 @@ servothickness = 12;
 armlength = 90;
 
 module rod(rodheight) {
-    translate([-2.6, -2.6, 0]) {
-        cube([5.2, 5.2, rodheight]);
+    translate([-2.8, -2.8, 0]) {
+        cube([5.6, 5.6, rodheight]);
     }
 }
 

@@ -115,9 +115,16 @@ module transfinger() {
 module joint(degrees) {
     translate([-12.5 - 40, 0, 0]) {
         rotate([0, 0, -degrees]) {
-            cube([3, 45.26, h + 10]);
-            translate([-1.5, 45.26 - 15, 0]) {
-                cube([6, 20, h + 10]);
+            difference() {
+                union() {
+                    cube([3, 45.26, h + 10]);
+                    translate([-1.5, 45.26 - 15, 0]) {
+                        cube([6, 20, h + 10]);
+                    }
+                }
+                translate([1.5, 45.26 , 0]) {
+                    cylinder(h + 10, 2, 2);
+                }
             }
         }
     }

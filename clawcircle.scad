@@ -137,20 +137,20 @@ module jointminus(degrees) {
 }
 
 module extracylinder() {
-    translate([0, 40.5, 0]) {
+    translate([0, 39.5, 0]) {
         difference() {
-            cube([9, 6, 10]);
+            cube([9, 8, 10]);
             difference() {
-                translate([0, 3, 0]) {
-                    cylinder(10, 3, 3);
+                translate([0, 4, 0]) {
+                    cylinder(10, 4, 4);
                 }
             }
         }
         difference() {
-            translate([0, 3, 0]) {
-                cylinder(10, 3, 3);
+            translate([0, 4, 0]) {
+                cylinder(10, 4, 4);
             }
-            translate([0, 3, 0]) {
+            translate([0, 4, 0]) {
                 cylinder(10, 2, 2);
             }
         }

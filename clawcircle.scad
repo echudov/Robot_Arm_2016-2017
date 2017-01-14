@@ -117,13 +117,13 @@ module joint(degrees) {
         rotate([0, 0, -degrees]) {
             difference() {
                 union() {
-                    cube([3, 45.26, h + 10]);
+                    cube([3, 45.26, h + 12]);
                     translate([-1.5, 45.26 - 15, 0]) {
-                        cube([6, 20, h + 10]);
+                        cube([6, 20, h + 12]);
                     }
                 }
                 translate([1.5, 45.26 , 0]) {
-                    cylinder(h + 10, 2, 2);
+                    cylinder(h + 12, 2, 2);
                 }
             }
         }
@@ -132,8 +132,8 @@ module joint(degrees) {
 
 module exitandcyl() {
     translate([-40, 0, 0]) {
-        translate([-2*outerr, -outerr, 0]) cylinder(h + 10, outerr, outerr);
-        translate([-2.5*length1, -1.2*pennyradius, 0]) cube([2.5*length1, 2.4*pennyradius, h + 10]);
+        translate([-2*outerr, -outerr, 0]) cylinder(h + 12, outerr, outerr);
+        translate([-2.5*length1, -1.2*pennyradius, 0]) cube([2.5*length1, 2.4*pennyradius, h + 12]);
     }
 }
 module jointminus(degrees) {
@@ -146,19 +146,19 @@ module jointminus(degrees) {
 module extracylinder() {
     translate([0, 39.5, 0]) {
         difference() {
-            cube([9, 8, 10]);
+            cube([9, 8, 15]);
             difference() {
                 translate([0, 4, 0]) {
-                    cylinder(10, 4, 4);
+                    cylinder(15, 4, 4);
                 }
             }
         }
         difference() {
             translate([0, 4, 0]) {
-                cylinder(10, 4, 4);
+                cylinder(15, 4, 4);
             }
             translate([0, 4, 0]) {
-                cylinder(10, 2, 2);
+                cylinder(15, 2, 2);
             }
         }
     }

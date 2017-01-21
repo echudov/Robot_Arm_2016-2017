@@ -98,16 +98,18 @@ module servoholder() {
 //gluable mount for the servo
 //not full size to allow for extra useability
 
+
+
 module extrudingthingy() {
     difference() {
         difference() {
-            cylinder(railheight, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius);
-            cylinder(railheight, outerr + 0.5*servothickness - 1.2*pennyradius, outerr + 0.5*servothickness - 1.2*pennyradius);
+            cylinder(railheight, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius, $fn = 400);
+            cylinder(railheight, outerr + 0.5*servothickness - 1.2*pennyradius, outerr + 0.5*servothickness - 1.2*pennyradius, $fn = 400);
         }
         translate([0, 0, 0.5*railheight]) {
             difference() {
-                cylinder(0.5*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius, outerr + railedge + 0.5*servothickness + 1.1*pennyradius);
-                cylinder(0.5*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius, outerr + railedge + 0.5*servothickness - 1.1*pennyradius);
+                cylinder(0.5*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius, outerr + railedge + 0.5*servothickness + 1.1*pennyradius, $fn = 400);
+                cylinder(0.5*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius, outerr + railedge + 0.5*servothickness - 1.1*pennyradius, $fn = 400);
             }
         }
     }
@@ -156,7 +158,7 @@ module extrudedemo() {
         diffextrude(1);
         leftextrude(1);
     }
-    translate([0, 0, 75 - 0.5*railheight]) {
+    translate([0, 0, 75 - railheight]) {
         mirror([0, 0, 1]) {
             diffextrude(1);
             leftextrude(1);
@@ -171,19 +173,33 @@ module extrudedemo() {
 module pusher() {
     intersection() {
         difference() {
-            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 0.5, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 0.5);
-            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 0.5, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 0.5);
+            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1, $fn = 400);
+            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 1, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 1, $fn = 400);
         }
-        translate([-(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 0.5), -(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 0.5), 0]) {
-            cube([2*(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 0.5), outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 0.5, 0.375*2*railheight]);
+        translate([-(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1), -(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1), 0]) {
+            cube([2*(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1), outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1, 0.375*2*railheight]);
         } 
     }
 }
 
 //creates the pusher
 
+module fillerhalf() {
+    difference() {
+        cylinder(3, innerr - 0.05, innerr - 0.05);
+        translate([0, -(innerr - 0.05), 0]) {
+            cube([innerr - 0.05, 2*(innerr - 0.05), 3]);
+        }
+    }
+}
+
 module filler() {
-    cylinder(3, innerr - 0.05, innerr - 0.05);
+    fillerhalf();
+    mirror([1, 0, 0]) {
+        translate([-10, 0, 0]) {
+            fillerhalf();
+        }
+    }
 }
 
 //creates the filler part for keeping pennies in
@@ -196,13 +212,18 @@ hingeholder(1);
 
 translate([4, 0, 0]) hingeholder(0);
 
+translate([-20, 0, 0]) {
+    hingeholder(1);
+    translate([4, 0, 0]) hingeholder(0);
+}
+
 translate([20, 15, 0]) servoholder();
 
 //extrudedemo();
 
 //NOT FOR PRINTING 
 
-translate([-40, 0, 0]) {
+translate([-60, 0, 0]) {
     filler();
 }
 

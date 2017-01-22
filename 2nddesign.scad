@@ -204,20 +204,20 @@ module filler() {
 
 //creates the filler part for keeping pennies in
 
-rotationalholder();
+//rotationalholder();
 
 innerfingers();
 
-hingeholder(1);
+//hingeholder(1);
 
-translate([4, 0, 0]) hingeholder(0);
+//translate([4, 0, 0]) hingeholder(0);
 
-translate([-20, 0, 0]) {
-    hingeholder(1);
-    translate([4, 0, 0]) hingeholder(0);
-}
+//translate([-20, 0, 0]) {
+//    hingeholder(1);
+//    translate([4, 0, 0]) hingeholder(0);
+//}
 
-translate([20, 15, 0]) servoholder();
+translate([20, 25, 0]) servoholder();
 
 //extrudedemo();
 
@@ -227,22 +227,22 @@ translate([-60, 0, 0]) {
     filler();
 }
 
-translate([45, 65, 0]) {
-    leftextrude(0);
-    diffextrude(0);
-}
+//translate([45, 65, 0]) {
+//    leftextrude(0);
+//    diffextrude(0);
+//
 
-translate([-45, 65, 0]) {
-    leftextrude(0);
-    diffextrude(0);
-}
+//translate([-45, 65, 0]) {
+//   leftextrude(0);
+//    diffextrude(0);
+//}
 
 
-translate([0, -30, 0]) {
-    pusher();
-}
+//translate([0, -30, 0]) {
+//pusher();
+//}
 
-translate([-20, 15, 0]) {
+translate([-20, 25, 0]) {
     mirror([1, 0, 0]) {
         servoholder();
     }

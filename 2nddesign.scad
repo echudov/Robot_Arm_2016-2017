@@ -8,7 +8,7 @@ motorlength = 24;
 servothickness = 12;
 hingewidth = 4.7625;
 hingeheight = hingewidth*5/3;
-railheight = 3;
+railheight = 3.5;
 railedge = 2;
 
 module hollowcyl() {
@@ -47,7 +47,7 @@ module innerfingers() {
 //creates the fingers for grabbing pennies
 //adds the halfcylinder
 
-module innerfingers2(); {
+module innerfingers2() {
     translate([-10, 0, 0]) {
         rotate([0, 0, 180]) {
             innerfingers();
@@ -57,7 +57,7 @@ module innerfingers2(); {
 
 //copies innerfingers() and rotates it 180 degrees to combine to a full cylinder
 
-module rotationalholder(); {
+module rotationalholder() {
     translate([40, 0, 0]) {
         difference() {           
             translate([-13, outerr - 6, 0]) {
@@ -103,13 +103,13 @@ module servoholder() {
 module extrudingthingy() {
     difference() {
         difference() {
-            cylinder(railheight, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius, $fn = 400);
-            cylinder(railheight, outerr + 0.5*servothickness - 1.2*pennyradius, outerr + 0.5*servothickness - 1.2*pennyradius, $fn = 400);
+            cylinder(railheight, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius - 1, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 1, $fn = 400);
+            cylinder(railheight, outerr + 0.5*servothickness - 1.2*pennyradius - 1, outerr + 0.5*servothickness - 1.2*pennyradius - 1, $fn = 400);
         }
         translate([0, 0, 0.5*railheight]) {
             difference() {
-                cylinder(0.5*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius, outerr + railedge + 0.5*servothickness + 1.1*pennyradius, $fn = 400);
-                cylinder(0.5*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius, outerr + railedge + 0.5*servothickness - 1.1*pennyradius, $fn = 400);
+                cylinder(0.5*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius + 1, outerr + railedge + 0.5*servothickness + 1.1*pennyradius + 1, $fn = 400);
+                cylinder(0.5*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius - 1, outerr + railedge + 0.5*servothickness - 1.1*pennyradius - 1, $fn = 400);
             }
         }
     }
@@ -121,8 +121,8 @@ module modifiedextrude() {
     translate([0, outerr + railedge + 0.5*servothickness, 0]) {
         intersection() {
             extrudingthingy();
-            translate([0, -(outerr + 2*railedge + 0.5*servothickness + pennyradius), 0]) {
-                cube([(outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius), outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius, railheight]);
+            translate([0, -(outerr + 2*railedge + 0.5*servothickness + pennyradius + 1), 0]) {
+                cube([(outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 1), outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 1, railheight]);
             }
         }
     }
@@ -173,11 +173,11 @@ module extrudedemo() {
 module pusher() {
     intersection() {
         difference() {
-            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1, $fn = 400);
-            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 1, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 1, $fn = 400);
+            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2, $fn = 400);
+            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 2, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 2, $fn = 400);
         }
-        translate([-(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1), -(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1), 0]) {
-            cube([2*(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1), outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 1, 0.375*2*railheight]);
+        translate([-(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2), -(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2), 0]) {
+            cube([2*(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2), outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2, 0.375*2*railheight]);
         } 
     }
 }
@@ -204,18 +204,19 @@ module filler() {
 
 //creates the filler part for keeping pennies in
 
-//rotationalholder();
+rotationalholder();
 
 innerfingers();
+innerfingers2();
 
-//hingeholder(1);
+hingeholder(1);
 
-//translate([4, 0, 0]) hingeholder(0);
+translate([4, 0, 0]) hingeholder(0);
 
-//translate([-20, 0, 0]) {
-//    hingeholder(1);
-//    translate([4, 0, 0]) hingeholder(0);
-//}
+translate([-20, 0, 0]) {
+    hingeholder(1);
+    translate([4, 0, 0]) hingeholder(0);
+}
 
 translate([20, 25, 0]) servoholder();
 
@@ -227,20 +228,20 @@ translate([-60, 0, 0]) {
     filler();
 }
 
-//translate([45, 65, 0]) {
-//    leftextrude(0);
-//    diffextrude(0);
-//
+translate([45, 65, 0]) {
+    leftextrude(0);
+    diffextrude(0);
+}
 
-//translate([-45, 65, 0]) {
-//   leftextrude(0);
-//    diffextrude(0);
-//}
+translate([-45, 65, 0]) {
+   leftextrude(0);
+    diffextrude(0);
+}
 
 
-//translate([0, -30, 0]) {
-//pusher();
-//}
+translate([0, -30, 0]) {
+    pusher();
+}
 
 translate([-20, 25, 0]) {
     mirror([1, 0, 0]) {

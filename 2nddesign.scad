@@ -8,8 +8,8 @@ motorlength = 24;
 servothickness = 12;
 hingewidth = 4.7625;
 hingeheight = hingewidth*5/3;
-railheight = 4;
-railedge = 2;
+railheight = 3;
+railedge = 1.5;
 
 module hollowcyl() {
     difference() {
@@ -103,7 +103,7 @@ module servoholder() {
 module extrudingthingy() {
     difference() {
         difference() {
-            cylinder(railheight, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius - 1, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 1, $fn = 400);
+            cylinder(railheight, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 1, outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 1, $fn = 400);
             cylinder(railheight, outerr + 0.5*servothickness - 1.2*pennyradius - 1, outerr + 0.5*servothickness - 1.2*pennyradius - 1, $fn = 400);
         }
         translate([0, 0, 0.5*railheight]) {
@@ -202,6 +202,15 @@ module filler() {
     }
 }
 
+module servoattach() {
+    difference() {
+        translate([outerr - 3, -5, 0]) {
+            cube([15, 10, 3]);
+        }
+        cylinder(h, outerr, outerr);
+    }
+}
+
 //creates the filler part for keeping pennies in
 
 //rotationalholder();
@@ -249,5 +258,9 @@ translate([0, -30, 0]) {
 //        servoholder();
 //    }
 //}
+
+translate([20, 0, 0]) {
+    servoattach();
+}
 
 //for second servo

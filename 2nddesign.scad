@@ -8,7 +8,7 @@ motorlength = 24;
 servothickness = 12;
 hingewidth = 4.7625;
 hingeheight = hingewidth*5/3;
-railheight = 3.5;
+railheight = 4;
 railedge = 2;
 
 module hollowcyl() {
@@ -173,11 +173,11 @@ module extrudedemo() {
 module pusher() {
     intersection() {
         difference() {
-            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2, outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2, $fn = 400);
-            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 2, outerr + railedge + 0.5*servothickness - 1.1*pennyradius + 2, $fn = 400);
+            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness + 1.1*pennyradius, outerr + railedge + 0.5*servothickness + 1.1*pennyradius, $fn = 400);
+            cylinder(0.375*2*railheight, outerr + railedge + 0.5*servothickness - 1.1*pennyradius, outerr + railedge + 0.5*servothickness - 1.1*pennyradius, $fn = 400);
         }
-        translate([-(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2), -(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2), 0]) {
-            cube([2*(outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2), outerr + railedge + 0.5*servothickness + 1.1*pennyradius - 2, 0.375*2*railheight]);
+        translate([-(outerr + railedge + 0.5*servothickness + 1.1*pennyradius), -(outerr + railedge + 0.5*servothickness + 1.1*pennyradius), 0]) {
+            cube([2*(outerr + railedge + 0.5*servothickness + 1.1*pennyradius), outerr + railedge + 0.5*servothickness + 1.1*pennyradius, 0.375*2*railheight]);
         } 
     }
 }
@@ -204,29 +204,30 @@ module filler() {
 
 //creates the filler part for keeping pennies in
 
-rotationalholder();
+//rotationalholder();
 
-innerfingers();
-innerfingers2();
+//innerfingers();
 
-hingeholder(1);
+//innerfingers2();
 
-translate([4, 0, 0]) hingeholder(0);
+//hingeholder(1);
 
-translate([-20, 0, 0]) {
-    hingeholder(1);
-    translate([4, 0, 0]) hingeholder(0);
-}
+//translate([4, 0, 0]) hingeholder(0);
 
-translate([20, 25, 0]) servoholder();
+//translate([-20, 0, 0]) {
+//    hingeholder(1);
+//    translate([4, 0, 0]) hingeholder(0);
+//}
+
+//translate([20, 25, 0]) servoholder();
 
 //extrudedemo();
 
 //NOT FOR PRINTING 
 
-translate([-60, 0, 0]) {
-    filler();
-}
+//translate([-60, 0, 0]) {
+//    filler();
+//}
 
 translate([45, 65, 0]) {
     leftextrude(0);
@@ -234,7 +235,7 @@ translate([45, 65, 0]) {
 }
 
 translate([-45, 65, 0]) {
-   leftextrude(0);
+    leftextrude(0);
     diffextrude(0);
 }
 
@@ -243,10 +244,10 @@ translate([0, -30, 0]) {
     pusher();
 }
 
-translate([-20, 25, 0]) {
-    mirror([1, 0, 0]) {
-        servoholder();
-    }
-}
+//translate([-20, 25, 0]) {
+//    mirror([1, 0, 0]) {
+//        servoholder();
+//    }
+//}
 
 //for second servo

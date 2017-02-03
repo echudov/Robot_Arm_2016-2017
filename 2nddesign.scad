@@ -11,6 +11,8 @@ hingeheight = hingewidth*5/3;
 railheight = 3;
 railedge = 1.5;
 
+$fn = 400;
+
 module hollowcyl() {
     difference() {
         cylinder(h, outerr, outerr);
@@ -117,12 +119,17 @@ module extrudingthingy() {
 
 //creates the curved track/rails for the curved rod to follow
 
-module modifiedextrude() {
+module hextrude() {
     translate([0, outerr + railedge + 0.5*servothickness, 0]) {
         intersection() {
-            extrudingthingy();
+            difference() {
+                extrudingthingy();
+                translate([-(outerr + 0.55*pennyradius - 2), -1.05*pennyradius - 2, 0]) {
+                    cylinder(0.375*2*railheight, 1.05*pennyradius, 1.05*pennyradius);
+                }
+            }
             translate([0, -(outerr + 2*railedge + 0.5*servothickness + pennyradius + 6), 0]) {
-                cube([(outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 3), outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 6, railheight]);
+                cube([(outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 3), 2*(outerr + 2*railedge + 0.5*servothickness + 1.2*pennyradius + 6), railheight]);
             }
         }
     }
@@ -131,13 +138,13 @@ module modifiedextrude() {
 //halves the extruder so its not a full circle
 //moves it to the right place for it to do a demo (centers) and remove inner cylinder
 
-module hextrude() {
+module modifiedextrude() {
     translate([0, outerr + railedge + 0.5*servothickness, 0]) {
         intersection() {
             difference() {
                 extrudingthingy();
-                translate([outerr + 0.55*pennyradius - 2, -1.1*pennyradius - 2, 0]) {
-                    cylinder(0.375*2*railheight, 1.1*pennyradius, 1.1*pennyradius);
+                translate([-(outerr + 0.55*pennyradius - 2), -1.05*pennyradius - 2, 0]) {
+                    cylinder(0.375*2*railheight, 1.05*pennyradius, 1.05*pennyradius);
                 }
             }
             translate([0, -(outerr + 2*railedge + 0.5*servothickness + pennyradius + 6), 0]) {
@@ -152,6 +159,20 @@ module diffextrude(direction) {
         difference() {
             modifiedextrude();
             cylinder(h, outerr, outerr);
+        }
+    }
+}
+
+module diffextrudetwo(direction) {
+    mirror([0, 0, direction]) {
+        difference() {
+            difference() {
+                hextrude();
+                cylinder(h, outerr, outerr);
+            }
+            translate([(outerr + 0.55*pennyradius + railedge), outerr + railedge + 0.5*servothickness, 0]) {
+                cylinder(0.375*2*railheight, 1.05*pennyradius, 1.05*pennyradius);
+            }
         }
     }
 }
@@ -177,6 +198,14 @@ module leftextrude(direction) {
 }
 
 //mirrors it over to the other halfcylinder piece
+
+module leftextrudetwo(direction) {
+    translate([-10, 0, 0]) {
+        mirror([1, 0, 0]) {
+            diffextrudetwo(direction);
+        }
+    }
+}
 
 module extrudedemo() {
     translate([0, 0, 75 + railheight]) {
@@ -247,11 +276,11 @@ module servoattach() {
 
 //creates the filler part for keeping pennies in
 
-//rotationalholder();
+rotationalholder();
 
-//innerfingers();
+innerfingers();
 
-//innerfingers2();
+innerfingers2();
 
 //hingeholder(1);
 
@@ -262,36 +291,40 @@ module servoattach() {
 //    translate([4, 0, 0]) hingeholder(0);
 //}
 
-//translate([20, 25, 0]) servoholder();
+translate([20, 25, 0]) servoholder();
 
 //extrudedemo();
 
 //NOT FOR PRINTING 
 
-//translate([-60, 0, 0]) {
-//    filler();
-//}
+translate([-60, 0, 0]) {
+    filler();
+}
 
 translate([45, 65, 0]) {
     leftextrude(0);
     diffextrude(0);
 }
 
-translate([-45, 65, 0]) {
-    leftextrude(0);
-    diffextrude(0);
-}
+//translate([-45, 65, 0]) {
+//    leftextrude(0);
+//    diffextrude(0);
+//}
 
+translate([-135, 65, 0]) {
+    leftextrudetwo(0);
+    holeextrude(0);
+}
 
 translate([0, -30, 0]) {
     holepusher();
 }
 
-//translate([-20, 25, 0]) {
-//    mirror([1, 0, 0]) {
-//        servoholder();
-//    }
-//}
+translate([-20, 25, 0]) {
+    mirror([1, 0, 0]) {
+        servoholder();
+    }
+}
 
 translate([20, 0, 0]) {
     servoattach();

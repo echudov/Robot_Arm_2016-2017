@@ -311,7 +311,7 @@ translate([45, 65, 0]) {
 //    diffextrude(0);
 //}
 
-translate([-135, 65, 0]) {
+translate([-45, 65, 0]) {
     leftextrudetwo(0);
     holeextrude(0);
 }

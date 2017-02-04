@@ -46,13 +46,26 @@ module innerfingers() {
     }
 }
 
+module innercyl1() {
+    intersection() {
+        difference() {
+            cylinder(2, 2*outerr, 2*outerr);
+            cylinder(2, outerr, outerr);
+        }
+        translate([0, -2*outerr, 0]) {
+            cube([2*outerr, 4*outerr, 3]);
+        }
+    }
+    innerfingers();
+}
+
 //creates the fingers for grabbing pennies
 //adds the halfcylinder
 
 module innerfingers2() {
     translate([-10, 0, 0]) {
         rotate([0, 0, 180]) {
-            innerfingers();
+            innercyl1();
         }
     }
 }
@@ -278,7 +291,7 @@ module servoattach() {
 
 rotationalholder();
 
-innerfingers();
+innercyl1();
 
 innerfingers2();
 

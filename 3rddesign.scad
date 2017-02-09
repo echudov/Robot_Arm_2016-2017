@@ -70,8 +70,8 @@ module innerthingies() {
                                 cube([6*innerr, 2*innerr, 3]);
                             }
                         }
-                    cylinder(h, innerr, innerr);
                     }
+                    cylinder(h, innerr, innerr);
                 }
             }
         }
@@ -80,10 +80,7 @@ module innerthingies() {
         }
     }
 }
+
 cylwdiff();
-
-translate([-10, 0, 0]) {
-    secondcwd();
-}
-
+translate([-10, 0, 0]) {    secondcwd(); }
 innerthingies();

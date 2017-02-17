@@ -150,9 +150,9 @@ module servoarmextention() {
     }
 }
 
-cylwdiff();
+//cylwdiff();
 
-support();
+//support();
 
 translate([-10, 0, 0]) {    
     secondcwd(); 
@@ -161,22 +161,22 @@ translate([-10, 0, 0]) {
     }
 }
 
-translate([30, 0, 1.5]) {
-    innerthingy1();
-}
+//translate([30, 0, 1.5]) {
+//    innerthingy1();
+//}
 
-translate([-45, 0, 1.5]) {
-    innerthingy2();
-}
+//translate([-45, 0, 1.5]) {
+//    innerthingy2();
+//}
 
-translate([0, 30, 0]) {
-    servoholder();
-}
+//translate([0, 30, 0]) {
+//    servoholder();
+//}
 
-translate([0, 40, 0]) {
-    flatmaker();
-}
+//translate([0, 40, 0]) {
+//    flatmaker();
+//}
 
-translate([30, 15, 1.5]) {
-    servoarmextention();
-}
+//translate([30, 15, 1.5]) {
+//   servoarmextention();
+//}

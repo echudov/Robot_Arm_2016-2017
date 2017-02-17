@@ -127,7 +127,7 @@ module flatmaker() {
 }
 
 module servoarmextention() {
-    linear_extrude([height=3, center = true, convexity = 10, twist = 0]) {
+    linear_extrude(height=3, center = true, convexity = 10, twist = 0) {
         translate([-2*pennyheight, 0, 0]) {
             square([4*pennyheight, 2.3*pennyradius]);
         }
@@ -157,4 +157,8 @@ translate([0, 30, 0]) {
 
 translate([0, 40, 0]) {
     flatmaker();
+}
+
+translate([30, 15, 1.5]) {
+    servoarmextention();
 }

@@ -11,7 +11,7 @@ hingeheight = hingewidth*5/3;
 railheight = 3;
 railedge = 1.5;
 steepness = 17.5;
-$fn = 400;
+$fn = 500;
 
 
 module halfhollowcyl() {
@@ -72,7 +72,7 @@ module innerthingy1() {
                             }
                         }
                     }
-                    cylinder(h, innerr, innerr);
+                    cylinder(h, innerr - 0.2, innerr - 0.2);
                 }
             }
         }
@@ -94,7 +94,7 @@ module innerthingy2() {
                             }
                         }
                     }
-                    cylinder(h, innerr, innerr);
+                    cylinder(h, innerr - 0.2, innerr - 0.2 );
                 }
             }
         }

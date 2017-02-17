@@ -11,6 +11,7 @@ hingeheight = hingewidth*5/3;
 railheight = 3;
 railedge = 1.5;
 steepness = 17.5;
+$fn = 400;
 
 
 module halfhollowcyl() {

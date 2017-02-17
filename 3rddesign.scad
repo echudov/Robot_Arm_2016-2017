@@ -60,6 +60,18 @@ module secondcwd() {
     }
 }
 
+module support() {
+    intersection() {
+        difference() {
+            cylinder(1.5, outerr + 10, outerr + 10);
+            cylinder(1.5, outerr, outerr);
+        }
+        translate([0, -(outerr + 10), 0]) {
+            cube([outerr + 10, 2*(outerr + 10), 1.5]);
+        }
+    }
+}
+
 module innerthingy1() {
     intersection() {
         rotate([0, -steepness, 0]) {
@@ -140,8 +152,13 @@ module servoarmextention() {
 
 cylwdiff();
 
+support();
+
 translate([-10, 0, 0]) {    
     secondcwd(); 
+    mirror([1, 0, 0]) {
+        support();
+    }
 }
 
 translate([30, 0, 1.5]) {

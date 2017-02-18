@@ -24,6 +24,15 @@ module halfhollowcyl() {
             cube([outerr, 2*outerr, h]);
         }
     }
+    difference() {
+        difference() {
+            cylinder(2, innerr, innerr);
+            cylinder(3, innerr - 6, innerr);
+        }
+        translate([-outerr, -outerr, 0]) {
+            cube([outerr, 2*outerr, h]);
+        }
+    }
 }
 
 module secondhhc() {
@@ -150,9 +159,9 @@ module servoarmextention() {
     }
 }
 
-//cylwdiff();
+cylwdiff();
 
-//support();
+support();
 
 translate([-10, 0, 0]) {    
     secondcwd(); 
